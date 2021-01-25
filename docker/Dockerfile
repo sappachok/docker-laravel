@@ -27,6 +27,26 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN chown -R www-data:www-data /var/www/html \
     && a2enmod rewrite
 
+# Install Oracle instantclient
+ADD ./oracle/instantclient-basiclite-linux.x64-19.5.0.0.0dbru.zip /tmp/
+ADD ./oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip /tmp/
+ADD ./oracle/instantclient-sqlplus-linux.x64-19.5.0.0.0dbru.zip /tmp/
+
+RUN unzip /tmp/instantclient-basiclite-linux.x64-19.5.0.0.0dbru.zip -d /usr/local/
+RUN unzip /tmp/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip -d /usr/local/
+RUN unzip /tmp/instantclient-sqlplus-linux.x64-19.5.0.0.0dbru.zip -d /usr/local/
+
+ENV LD_LIBRARY_PATH /usr/local/instantclient_19_5/
+
+RUN ln -s /usr/local/instantclient_19_5 /usr/local/instantclient
+RUN ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
+
+RUN echo 'export LD_LIBRARY_PATH="/usr/local/instantclient"' >> /root/.bashrc
+RUN echo 'umask 002' >> /root/.bashrc
+
+RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8
+RUN echo "extension=oci8.so" > /usr/local/etc/php/conf.d/php-oci8.ini
+
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 EXPOSE 80

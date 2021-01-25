@@ -12,7 +12,7 @@ services:
       - 8080:80
       - 9000:9000
     volumes:
-      - c://xampp3//htdocs//laravel//laravelapp:/var/www/html
+      - c://xampp3//htdocs//laravel//laravel-ora:/var/www/html
     restart: always
     depends_on:
       - db

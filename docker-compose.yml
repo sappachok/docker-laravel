@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./Dockerfile
     image: 'laravelapp'
     container_name: 'laravelapp'
     tty: true

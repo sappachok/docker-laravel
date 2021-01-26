@@ -36,8 +36,9 @@ RUN unzip /tmp/instantclient-basiclite-linux.x64-18.5.0.0.0dbru.zip -d /usr/loca
 RUN unzip /tmp/instantclient-sdk-linux.x64-18.5.0.0.0dbru.zip -d /usr/local/
 RUN unzip /tmp/instantclient-sqlplus-linux.x64-18.5.0.0.0dbru.zip -d /usr/local/
 
-RUN ln -s /usr/local/instantclient_12_2 /usr/local/instantclient
-RUN ln -s /usr/local/instantclient/libclntsh.so.12.1 /usr/local/instantclient/libclntsh.so
+ENV LD_LIBRARY_PATH /usr/local/instantclient_18_5/
+
+RUN ln -s /usr/local/instantclient_18_5 /usr/local/instantclient
 RUN ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 
 ENV LD_LIBRARY_PATH /usr/local/instantclient/

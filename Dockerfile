@@ -56,7 +56,7 @@ RUN docker-php-ext-enable oci8 \
        && docker-php-ext-install pdo_oci 
 
 RUN ldd /usr/local/lib/php/extensions/no-debug-non-zts-20190902/oci8.so
-#RUN php -m | grep 'oci8'
+RUN php -m | grep 'oci8'
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 

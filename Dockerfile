@@ -43,7 +43,7 @@ RUN ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 RUN echo 'export LD_LIBRARY_PATH="/usr/local/instantclient"' >> /root/.bashrc
 RUN echo 'umask 002' >> /root/.bashrc
 
-RUN apt-get install build-essential libaio1
+RUN apt-get install build-essential libaio1 libmql1
 RUN pecl channel-update pecl.php.net
 
 RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8-2.2.0

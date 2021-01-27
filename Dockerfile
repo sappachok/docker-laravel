@@ -45,6 +45,9 @@ ENV LD_LIBRARY_PATH /usr/local/instantclient/
 RUN echo 'export LD_LIBRARY_PATH="/usr/local/instantclient"' >> /root/.bashrc
 RUN echo 'umask 002' >> /root/.bashrc
 
+RUN apt-get install build-essential libaio1
+RUN pecl channel-update pecl.php.net
+
 RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8-2.2.0
 RUN echo "extension=oci8.so" > /usr/local/etc/php/conf.d/php-oci8.ini
 
